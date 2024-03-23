@@ -1,0 +1,3 @@
+[submodule "baseball_api/myApi/pybaswballgit"]
+	path = baseball_api/myApi/pybaswballgit
+	url = https://github.com/jldbc/pybaseball
