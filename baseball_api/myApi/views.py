@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import numpy as np
 from .pybaseballgit.pybaseball import top_prospects, standings, batting_stats, playerid_lookup, bwar_bat, bwar_pitch, \
-    pitching_stats, rosters
+    pitching_stats, teamid_lookup, schedule_and_record
 
 
 @api_view(['PUT'])
@@ -81,8 +81,16 @@ def getWar(request):
 
 
 @api_view(['PUT'])
-def getRoster(request):
+def getTeamId(request):
     conv = lambda i: i or None
-    date = int(conv(request.data.get('date')))
-    roster = rosters(date)
-    return Response({'roster': roster})
+    team = conv(request.data.get('team'))
+    teamId = teamid_lookup.mlb_team_id(team)
+    return Response({'teamId': teamId})
+
+
+@api_view(['PUT'])
+def getRecord(request):
+    team = request.data.get('team')
+    year = requst.data.get('year')
+    record = schedule_and_record(year, team)
+    return Response({'record'})
